@@ -3,4 +3,4 @@ Undocked Pagination:
 ![Undocked Pagination](/undocked.png)
 
 Docked Pagination:
-![Docked Pagination](/docked.png)
+![Docked Pagination](/dockedPagination.png)
