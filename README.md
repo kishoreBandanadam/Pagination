@@ -1,6 +1,6 @@
 
 Undocked Pagination:
-![Undocked Pagination]({{site.url}}/undocked.png)
+![Undocked Pagination](/undocked.png)
 
 Docked Pagination:
-![Docked Pagination]({{site.url}}/docked.png)
+![Docked Pagination](/docked.png)
