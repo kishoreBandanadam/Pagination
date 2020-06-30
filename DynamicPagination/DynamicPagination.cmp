@@ -1,0 +1,53 @@
+<aura:component extensible="true" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <!-- Public attributes -->
+    <aura:attribute name="data" type="String" description="input"/>
+    <aura:attribute name="records" type="List"/>
+    <aura:attribute name="paginationList" type="List" description="output"/>
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="docked" type="Boolean" default="false" description="true for docked and false for undocked footer"/>
+    
+    <!-- Private attributes -->
+    <aura:attribute name="noOfPages" type="Integer" access="private"/>
+    <aura:attribute name="pageNumber" type="Integer" access="private"/>
+    <aura:attribute name="totalSize" type="Integer" access="private"/>
+    <aura:attribute name="paginationMap" type="Map" access="private"/>
+    <aura:attribute name="invalidPageStatus" type="String" access="private"/>
+    
+    <!-- Handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.initPaginator}"/>
+    <aura:handler name="change" value="{!v.data}" action="{!c.dataChangeHandler}"/>
+    
+    <!-- extended child components markup gets displayed -->
+    <div>{!v.body}</div>
+    
+    <div class="slds-docked-form-footer" style="{!if(v.docked == true,'','position: inherit !important;')}" aura:id="dockedFooter">
+        <lightning:layout>
+            <lightning:layoutItem flexibility="auto">
+                <lightning:buttonGroup >
+                    <lightning:button label="Previous" onclick="{!c.onPrev}" disabled="{!(v.pageNumber > 1 ? false:true)}"/>
+                    <lightning:button label="Next" onclick="{!c.onNext}" disabled="{!(v.pageNumber == v.noOfPages ? true:false)}"/>
+                </lightning:buttonGroup>
+            </lightning:layoutItem>
+            <lightning:layoutItem flexibility="auto, no-grow">
+                <div class="slds-align_absolute-center slds-p-left_large" >
+                    <div class="slds-text-heading_small">
+                        Page: {!v.pageNumber} 
+                    </div>
+                    <br></br>
+                    <span style="padding-left:3rem" onkeyup="{!c.onEnter}">
+                        <ui:inputNumber aura:id="search" label="" value=""/>
+                    </span>
+                </div>
+            </lightning:layoutItem>
+            <lightning:layoutItem flexibility="auto, no-grow">
+                <div class="slds-align_absolute-center slds-p-left_large slds-p-top_x-small" >
+                    <div class="slds-text-heading_small">
+                        {!v.invalidPageStatus}
+                    </div>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+    
+</aura:component>
